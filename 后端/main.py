@@ -1,3 +1,4 @@
+import json
 import pymysql
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # pip install flask-cors 
@@ -31,6 +32,31 @@ def start_mqtt_client():
 # 在单独的线程中启动MQTT客户端
 mqtt_thread = threading.Thread(target=start_mqtt_client)
 mqtt_thread.start()
+
+
+# 控制智能农场设备的API
+@app.route('/smart_farm/control', methods=['POST'])
+def control_smart_farm():
+    try:
+        control_data = request.json
+        if not control_data:
+            return jsonify({'error': 'No control data received'}), 400
+        
+        # MQTT消息必须保持JSON格式
+        mqtt_message = {
+            "Water_pump": control_data.get("Water_pump", "off"),
+            "Heat": control_data.get("heat", "off"),
+            "luminance": control_data.get("luminance", "0")
+        }
+        
+        # 将字典转换成JSON字符串发送
+        mqtt_client.client.publish(mqtt_pub_topic, json.dumps(mqtt_message))
+        
+        return jsonify({'message': 'Control data sent successfully via MQTT'}), 200
+    except Exception as e:
+        print(f"Error in control_smart_farm: {str(e)}")
+        return jsonify({'error': 'Failed to send control data'}), 500
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
