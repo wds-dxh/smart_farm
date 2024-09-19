@@ -118,10 +118,10 @@ export default {
         });
     },
     renderChart() {
-      const temperatures = this.workshopData.map(item => item.temperature);
-      const humidnesses = this.workshopData.map(item => item.humidness);
-      const illuminations = this.workshopData.map(item => item.illumination);
-      const timestamps = this.workshopData.map(item => item.timestamp);
+      const temperatures = this.workshopData.map(item => item.temperatures);
+      const humidnesses = this.workshopData.map(item => item.humidnesses);
+      const illuminations = this.workshopData.map(item => item.illuminations);
+      const timestamps = this.workshopData.map(item => item.timestamps);
 
       const series = [];
 

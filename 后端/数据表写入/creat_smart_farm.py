@@ -1,9 +1,9 @@
 '''
 Author: wds-dxh wdsnpshy@163.com
 Date: 2024-07-12 08:22:55
-LastEditors: wds-dxh wdsnpshy@163.com
-LastEditTime: 2024-09-16 12:11:03
-FilePath: /Data_persistence/creat_smart_farm.py
+LastEditors: wds-win11 wdsnpshy@163.com
+LastEditTime: 2024-09-20 00:08:39
+FilePath: \后端\数据表写入\creat_smart_farm.py
 Description: 
 微信: 15310638214 
 邮箱：wdsnpshy@163.com 
@@ -25,7 +25,7 @@ try:
 
 
     sql = """
-    CREATE TABLE smart_factory_status(
+    CREATE TABLE smart_farm_status(
     id INT PRIMARY KEY AUTO_INCREMENT,
     temperature FLOAT,
     humidness FLOAT,

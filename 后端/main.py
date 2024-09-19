@@ -59,7 +59,7 @@ def login():
     finally:
         con.close()
 
-@app.route('/plant_carbon_sequestration/status', methods=['POST'])
+@app.route('/smart_farm/status', methods=['POST'])
 def get_workshop_status():
     try:
         data = request.get_json()
@@ -73,8 +73,8 @@ def get_workshop_status():
 
         # 查询数据的 SQL 语句
         sql = f"""
-        SELECT co2_concentration, timestamp
-        FROM plant_carbon_sequestration_status
+        SELECT temperature, humidness, illumination, timestamp
+        FROM smart_farm_status
         ORDER BY timestamp DESC
         LIMIT {limit}
         """
@@ -85,8 +85,10 @@ def get_workshop_status():
             data = []
             for row in result:
                 data.append({
-                    "co2_concentration": row[0],
-                    "timestamp": row[1].strftime('%Y-%m-%d %H:%M:%S')
+                    "temperatures": row[0],
+                    "humidnesses": row[1],
+                    "illuminations": row[2],
+                    "timestamps": row[3].strftime('%Y-%m-%d %H:%M:%S')
                 })
             return jsonify(data)
     except Exception as e:
